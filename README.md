@@ -4,4 +4,4 @@
 
 [Git](https://git-scm.com/)
 
-[English Version](pvk/REAME.en.md)
+[English Version](REAME.en.md)
