@@ -1,9 +1,9 @@
 <?php
-$dishes = array(
+$tarvikud = array(
     array(
         category => 'praed',
         name => 'Sealihapada ploomide ja aprikoosiga',
-        description => 'Sealihapada, lisand, kartul, sai, salat, leib',
+        description => 'Sealihapada, kartul, sai, salat, leib',
         price => 2.65,
     ),
     array(
@@ -15,14 +15,14 @@ $dishes = array(
     array(
         category => 'praed',
         name => 'Hakklihakaste',
-        description => 'Hakklihakaste, kartul, lisand, leib, sai',
-        price => 2.45,
+        description => 'Hakklihakaste, lisand, kartul, sai, leib',
+        price => 2.20,
     ),
     array(
         category => 'supid',
-        name => 'Rassolnik',
-        description => 'Supp',
-        price => 1.50,
+        name => 'Kõrvitsa püreesupp',
+        description => 'supp',
+        price => 1.60,
     ),
     array(
         category => 'magustoidud',
@@ -33,44 +33,60 @@ $dishes = array(
     array(
         category => 'joogid',
         name => 'Piim',
-        description => 'lehmalt saadud',
-        price => 0.20,
+        description => null,
+        price => 0.2,
     ),
     array(
         category => 'joogid',
         name => 'Mahl',
-        description => 'värskelt pressitud marjast',
-        price => 0.20,
+        description => null,
+        price => 0.2,
     ),
     array(
         category => 'joogid',
         name => 'Keefir',
         description => null,
-        price => 0.20,
+        price => 0.2,
     ),
-
-    array(
-        category => 'joogid',
-        name => 'Jogurt',
-        description => null,
-        price => 0.50,
-    ),
-
     array(
         category => 'joogid',
         name => 'Kakao',
         description => null,
-        price => 0.40,
+        price => 0.2,
     ),
-
     array(
         category => 'joogid',
         name => 'Tee',
         description => null,
-        price => 0.30,
+        price => 0.2,
+    ),
+    array(
+        category => 'joogid',
+        name => 'Jogurt',
+        description => null,
+        price => 0.2,
     ),
 );
-
+function reducePrice($discountPercentage, $price)
+{
+    return round(($price * (100 - $discountPercentage) / 100), 2);
+};
+function displaytarvikud($category)
+{
+    global $tarvikud;
+    foreach ($tarvikud as $tarvik) {
+        if ($tarvik[category] === $category) {
+            echo '
+            <li class="list-group-item">
+              <p>' . $tarvik[name] . '
+              <span class="badge badge-info">' . $tarvik[price] . '€</span>
+              <span class="badge badge-success">' . ($tarvik[category] === 'joogid' ? null : reducePrice(15, $tarvik[price]) . '€') . '</span></p>
+              <p class="text-secondary font-weight-light">' . $tarvik[description] . '</p>
+            </li>
+          ';
+        }
+    }
+};
 ?>
 
 <!DOCTYPE html>
@@ -99,7 +115,7 @@ $dishes = array(
                     <ul class="praed list-group">
 
                         <?php
-                        displayDishes('praed');
+                        displaytarvikud('praed');
                         ?>
 
                     </ul>
@@ -116,7 +132,7 @@ $dishes = array(
                     <ul class="supid list-group">
 
                         <?php
-                        displayDishes('supid');
+                        displaytarvikud('supid');
                         ?>
 
                     </ul>
@@ -133,7 +149,7 @@ $dishes = array(
                     <ul class="magustoidud list-group">
 
                         <?php
-                        displayDishes('magustoidud');
+                        displaytarvikud('magustoidud');
                         ?>
 
                     </ul>
@@ -150,7 +166,7 @@ $dishes = array(
                     <ul class="joogid list-group">
 
                         <?php
-                        displayDishes('joogid');
+                        displaytarvikud('joogid');
                         ?>
 
                     </ul>
